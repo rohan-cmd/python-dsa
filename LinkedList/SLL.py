@@ -60,6 +60,9 @@ class SinglyLinkedList:
     
     def printSize(self):
         return self.size
+    
+    def printHead(self):
+        return self.head.data
             
 if __name__ == "__main__" :
     linkedList = SinglyLinkedList()
@@ -76,3 +79,4 @@ if __name__ == "__main__" :
 
     linkedList.printLL()
     print(linkedList.printSize())
+    print(linkedList.printHead())
