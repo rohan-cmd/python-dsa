@@ -5,7 +5,7 @@ class Node:
 
 class SinglyLinkedList:
     def __init__(self):
-        self.size = 0
+        self.length = 0
         self.head = None
     
     def insertLast(self, data):
@@ -18,7 +18,7 @@ class SinglyLinkedList:
             while(temp.next):
                 temp = temp.next
             temp.next = newNode
-        self.size = self.size+1
+        self.length = self.length+1
 
     def deleteLast(self):
         if self.head is not None:
@@ -29,7 +29,7 @@ class SinglyLinkedList:
                 while((temp.next).next):
                     temp = temp.next
                 temp.next = None
-            self.size = self.size-1
+            self.length = self.length-1
 
     def insertFirst(self, data):
         if self.head is None:
@@ -39,7 +39,7 @@ class SinglyLinkedList:
             newNode = Node(data)
             newNode.next = self.head
             self.head = newNode
-        self.size = self.size+1
+        self.length = self.length+1
 
     def deleteFirst(self):
         if self.head is not None:
@@ -49,7 +49,45 @@ class SinglyLinkedList:
                 temp = self.head
                 self.head = temp.next
                 temp.next = None
-            self.size = self.size-1
+            self.length = self.length-1
+
+    def getNode(self, ind):
+        if ind<0:
+            return None
+        temp = self.head
+        i = 0
+        while(temp and i<ind):
+            temp = temp.next
+            i = i+1
+        
+        if (temp):
+            return temp
+        else:
+            return None
+        
+    def setNode(self, ind, val):
+        temp = self.getNode(ind)
+        if temp:
+            temp.data = val
+
+    def insertAtIndex(self, ind, data):
+        if ind==0:
+            self.insertFirst(data)
+            return
+        
+        if ind==self.length:
+            self.insertLast(data)
+            return
+        
+        temp = self.getNode(ind-1)
+        if (temp):
+            newNode = Node(data)
+            newNode.next = temp.next
+            temp.next = newNode
+            self.length = self.length+1
+            return
+        else:
+            return None
 
     def printLL(self):
         temp = self.head
@@ -58,11 +96,12 @@ class SinglyLinkedList:
             temp = temp.next
         print("None")
     
-    def printSize(self):
-        return self.size
+    def printLength(self):
+        return self.length
     
     def printHead(self):
-        return self.head.data
+        if self.head:
+            return self.head.data
             
 if __name__ == "__main__" :
     linkedList = SinglyLinkedList()
@@ -77,6 +116,9 @@ if __name__ == "__main__" :
     linkedList.insertFirst(8)
     linkedList.insertFirst(10)
 
+    # linkedList.setNode(10, 100)
+    linkedList.insertAtIndex(5,100)
+
     linkedList.printLL()
-    print(linkedList.printSize())
-    print(linkedList.printHead())
+    # print(linkedList.printLength())
+    # print(linkedList.printHead())
