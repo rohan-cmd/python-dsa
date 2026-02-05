@@ -71,6 +71,10 @@ class SinglyLinkedList:
             temp.data = val
 
     def insertAtIndex(self, ind, data):
+        if ind < 0 or ind > self.length:
+            print("Index out of bounds")
+            return
+
         if ind==0:
             self.insertFirst(data)
             return
@@ -88,6 +92,40 @@ class SinglyLinkedList:
             return
         else:
             return None
+
+    def deleteFromIndex(self, ind):
+        if ind < 0 or ind >= self.length:
+            print("Index out of bounds")
+            return
+
+        if ind==0:
+            self.deleteFirst()
+            return
+        
+        if ind==self.length-1:
+            self.deleteLast()
+            return
+
+        temp = self.getNode(ind-1)
+        if temp:
+            tempRem = temp.next
+            temp.next = tempRem.next
+            tempRem.next = None
+            self.length = self.length-1
+
+    def reverseLinkedList(self):
+        if not (self.length <=1) :
+            prev = None
+            curr = self.head
+
+            while(curr):
+                nextNode = curr.next
+                curr.next = prev
+                prev = curr
+                curr = nextNode
+            
+            self.head = prev
+
 
     def printLL(self):
         temp = self.head
@@ -120,5 +158,9 @@ if __name__ == "__main__" :
     linkedList.insertAtIndex(5,100)
 
     linkedList.printLL()
-    # print(linkedList.printLength())
-    # print(linkedList.printHead())
+
+    linkedList.reverseLinkedList()
+
+    linkedList.printLL()
+    print(linkedList.printLength())
+    print(linkedList.printHead())
